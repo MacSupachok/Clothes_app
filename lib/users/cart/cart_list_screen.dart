@@ -2,9 +2,10 @@ import 'dart:convert';
 // import 'dart:ffi';
 
 import 'package:clothes_app/api_connection/api_connection.dart';
-import 'package:clothes_app/users/cart/cart_list_controller.dart';
+import 'package:clothes_app/controller/cart_list_controller.dart';
 import 'package:clothes_app/users/model/cart.dart';
 import 'package:clothes_app/users/model/clothes.dart';
+import 'package:clothes_app/users/order/order_now_screen.dart';
 import 'package:clothes_app/users/userPreferences/current_user.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
@@ -73,7 +74,7 @@ class _CartListScreenState extends State<CartListScreen> {
 
     if (cartListController.selectedItemList.isNotEmpty) {
       for (var itemInCart in cartListController.cartList) {
-        if (cartListController.selectedItemList.contains(itemInCart.item_id)) {
+        if (cartListController.selectedItemList.contains(itemInCart.cart_id)) {
           double eachItemTotalAmount = (itemInCart.price!) *
               (double.parse(itemInCart.quantity.toString()));
 
@@ -126,6 +127,33 @@ class _CartListScreenState extends State<CartListScreen> {
     } catch (e) {
       log.d(e);
     }
+  }
+
+  List<Map<String, dynamic>> getSelectedCartListItemsInformation() {
+    List<Map<String, dynamic>> selectedCartListItemsInformation = [];
+
+    if (cartListController.selectedItemList.isNotEmpty) {
+      for (var selectedCartListItem in cartListController.cartList) {
+        if (cartListController.selectedItemList
+            .contains(selectedCartListItem.cart_id)) {
+          Map<String, dynamic> itemInformation = {
+            "item_id": selectedCartListItem.item_id,
+            "name": selectedCartListItem.name,
+            'image': selectedCartListItem.image,
+            'color': selectedCartListItem.color,
+            'size': selectedCartListItem.size,
+            'quantity': selectedCartListItem.quantity,
+            'totalAmount':
+                selectedCartListItem.price! * selectedCartListItem.quantity!,
+            'price': selectedCartListItem.price!,
+          };
+
+          selectedCartListItemsInformation.add(itemInformation);
+        }
+      }
+    }
+
+    return selectedCartListItemsInformation;
   }
 
   @override
@@ -510,7 +538,17 @@ class _CartListScreenState extends State<CartListScreen> {
                         : Colors.white24,
                     borderRadius: BorderRadius.circular(30),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        cartListController.selectedItemList.isNotEmpty
+                            ? Get.to(() => OrderNowScreen(
+                                  selectedCartListItemsInfo:
+                                      getSelectedCartListItemsInformation(),
+                                  totalAmount: cartListController.total,
+                                  selectedCartId:
+                                      cartListController.selectedItemList,
+                                ))
+                            : null;
+                      },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 20,

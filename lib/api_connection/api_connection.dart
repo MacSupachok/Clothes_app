@@ -2,14 +2,14 @@ class API {
   static const apiToken =
       "fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0";
 
-  static const hostConnect = "http://192.168.1.9/api_clothes_store";
+  static const hostConnect = "http://192.168.1.150/api_clothes_store";
   static const hostConnectUser = "$hostConnect/user/user_services.php";
   static const hostConnectAdmin = "$hostConnect/admin/admin_services.php";
   static const hostConnectItem = "$hostConnect/item/item_services.php";
   static const hostCart = "$hostConnect/cart/cart_services.php";
   static const hostFavorite = "$hostConnect/favorite/favorite_services.php";
 
-  //check auth "http://192.168.1.162/api_clothes_store/user/user.php?function=check_auth&api_token=fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0"
+  //check auth "http://192.168.1.162/api_clothes_store/user/user_services.php?function=check_auth&api_token=fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0"
 
   //user srevices
   static const validateEmail =
