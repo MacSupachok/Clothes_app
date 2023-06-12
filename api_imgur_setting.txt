@@ -1,0 +1,6 @@
+--clothes app
+Client ID:
+2292cb657a56a84
+Client secret:
+986c8adf8c710531b70fa203709aa9243fd52fb3
+--
