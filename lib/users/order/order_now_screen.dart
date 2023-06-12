@@ -2,7 +2,10 @@
 
 import 'package:clothes_app/controller/order_now_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+
+import 'order_confirm.dart';
 
 class OrderNowScreen extends StatelessWidget {
   final List<Map<String, dynamic>> selectedCartListItemsInfo;
@@ -275,21 +278,21 @@ class OrderNowScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               child: InkWell(
                 onTap: () {
-                  // if (phoneNumberController.text.isNotEmpty &&
-                  //     shipmentAddressController.text.isNotEmpty) {
-                  //   Get.to(OrderConfirmationScreen(
-                  //     selectedCartIDs: selectedCartIDs,
-                  //     selectedCartListItemsInfo: selectedCartListItemsInfo,
-                  //     totalAmount: totalAmount,
-                  //     deliverySystem: orderNowController.deliverySys,
-                  //     paymentSystem: orderNowController.paymentSys,
-                  //     phoneNumber: phoneNumberController.text,
-                  //     shipmentAddress: shipmentAddressController.text,
-                  //     note: noteToSellerController.text,
-                  //   ));
-                  // } else {
-                  //   Fluttertoast.showToast(msg: "Please complete the form.");
-                  // }
+                  if (phoneNumberController.text.isNotEmpty &&
+                      shipmentAddressController.text.isNotEmpty) {
+                    Get.to(OrderConfirmationScreen(
+                      selectedCartIDs: selectedCartId,
+                      selectedCartListItemsInfo: selectedCartListItemsInfo,
+                      totalAmount: totalAmount,
+                      deliverySystem: orderNowController.deliverySys,
+                      paymentSystem: orderNowController.paymentSys,
+                      phoneNumber: phoneNumberController.text,
+                      shipmentAddress: shipmentAddressController.text,
+                      note: noteToSellerController.text,
+                    ));
+                  } else {
+                    Fluttertoast.showToast(msg: "Please complete the form.");
+                  }
                 },
                 borderRadius: BorderRadius.circular(30),
                 child: Padding(
