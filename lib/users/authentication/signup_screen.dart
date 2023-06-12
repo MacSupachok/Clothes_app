@@ -25,32 +25,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var passwordController = TextEditingController();
   var isObsecure = true.obs;
 
-  validateUserEmail() async {
-    try {
-      var res = await http.post(
-        Uri.parse(API.validateEmail),
-        body: {
-          'user_email': emailController.text.trim(),
-        },
-      );
-      // log.d(Uri.parse(API.validateEmail));
-      if (res.statusCode == 200) {
-        var resBodyOfValidateEmail = jsonDecode(res.body);
-        if (resBodyOfValidateEmail['emailFound'] == true) {
-          Fluttertoast.showToast(
-              msg: "Email already exist. Try another email.");
-        } else {
-          //register and save to database
-          registerAndSaveUserReccord();
-        }
-      } else {
-        Fluttertoast.showToast(msg: res.statusCode.toString());
-      }
-    } catch (e) {
-      log.d(e);
-      Fluttertoast.showToast(msg: e.toString());
-    }
-  }
+  // validateUserEmail() async {
+  //   try {
+  //     var res = await http.post(
+  //       Uri.parse(API.validateEmail),
+  //       body: {
+  //         'user_email': emailController.text.trim(),
+  //       },
+  //     );
+  //     // log.d(Uri.parse(API.validateEmail));
+  //     if (res.statusCode == 200) {
+  //       var resBodyOfValidateEmail = jsonDecode(res.body);
+  //       if (resBodyOfValidateEmail['emailFound'] == true) {
+  //         Fluttertoast.showToast(
+  //             msg: "Email already exist. Try another email.");
+  //       } else {
+  //         //register and save to database
+  //         registerAndSaveUserReccord();
+  //       }
+  //     } else {
+  //       Fluttertoast.showToast(msg: res.statusCode.toString());
+  //     }
+  //   } catch (e) {
+  //     log.d(e);
+  //     Fluttertoast.showToast(msg: e.toString());
+  //   }
+  // }
 
   registerAndSaveUserReccord() async {
     User userModel = User(
@@ -62,6 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     try {
       var res = await http.post(
         Uri.parse(API.signUp),
+        // Uri.parse('http://localhost:8888/auth/register'),
         body: userModel.toJson(),
       );
       if (res.statusCode == 200) {
@@ -292,7 +293,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   onTap: () {
                                     if (formKey.currentState!.validate()) {
                                       //validate email
-                                      validateUserEmail();
+                                      // validateUserEmail();
+                                      registerAndSaveUserReccord();
                                     }
                                   },
                                   borderRadius: BorderRadius.circular(30),
