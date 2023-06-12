@@ -4,7 +4,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.2 <4.0.0'
+  sdk: '>=3.0.1 <4.0.0'
 dependencies:
   flutter:
     sdk: flutter
@@ -20,11 +20,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   intl: ^0.18.1
 
-
-
 flutter_icons:
   android: true
-  image_path: "images/logo/app_logo.png"
+  image_path: 'images/logo/app_logo.png'
 
 dev_dependencies:
   flutter_test:
