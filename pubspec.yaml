@@ -33,3 +33,4 @@ flutter:
   assets:
     - images/
     - images/users/users.png
+    - images/payment.png

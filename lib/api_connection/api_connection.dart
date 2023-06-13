@@ -1,13 +1,16 @@
 class API {
+  // api token authen
   static const apiToken =
       "fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0";
 
-  static const hostConnect = "http://192.168.1.150/api_clothes_store";
+  //services path
+  static const hostConnect = "http://192.168.241.64/api_clothes_store";
   static const hostConnectUser = "$hostConnect/user/user_services.php";
   static const hostConnectAdmin = "$hostConnect/admin/admin_services.php";
   static const hostConnectItem = "$hostConnect/item/item_services.php";
   static const hostCart = "$hostConnect/cart/cart_services.php";
   static const hostFavorite = "$hostConnect/favorite/favorite_services.php";
+  static const hostOrder = "$hostConnect/order/order_services.php";
 
   //check auth "http://192.168.1.162/api_clothes_store/user/user_services.php?function=check_auth&api_token=fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0"
 
@@ -50,4 +53,7 @@ class API {
       "$hostFavorite?function=check_favorite&api_token=$apiToken";
   static const readFavorite =
       "$hostFavorite?function=read_favorite&api_token=$apiToken";
+
+  //order services
+  static const addOrder = "$hostOrder?function=add_order&api_token=$apiToken";
 }

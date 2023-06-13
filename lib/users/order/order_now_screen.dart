@@ -98,7 +98,7 @@ class OrderNowScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  'Company Account Number / ID: \nY87Y-HJF9-CVBN-4321',
+                  'Bank Account : 382-243-1087',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white38,
@@ -280,16 +280,16 @@ class OrderNowScreen extends StatelessWidget {
                 onTap: () {
                   if (phoneNumberController.text.isNotEmpty &&
                       shipmentAddressController.text.isNotEmpty) {
-                    Get.to(OrderConfirmationScreen(
-                      selectedCartIDs: selectedCartId,
-                      selectedCartListItemsInfo: selectedCartListItemsInfo,
-                      totalAmount: totalAmount,
-                      deliverySystem: orderNowController.deliverySys,
-                      paymentSystem: orderNowController.paymentSys,
-                      phoneNumber: phoneNumberController.text,
-                      shipmentAddress: shipmentAddressController.text,
-                      note: noteToSellerController.text,
-                    ));
+                    Get.to(() => (OrderConfirmationScreen(
+                          selectedCartIDs: selectedCartId,
+                          selectedCartListItemsInfo: selectedCartListItemsInfo,
+                          totalAmount: totalAmount,
+                          deliverySystem: orderNowController.deliverySys,
+                          paymentSystem: orderNowController.paymentSys,
+                          phoneNumber: phoneNumberController.text,
+                          shipmentAddress: shipmentAddressController.text,
+                          note: noteToSellerController.text,
+                        )));
                   } else {
                     Fluttertoast.showToast(msg: "Please complete the form.");
                   }
