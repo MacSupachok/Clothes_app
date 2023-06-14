@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:clothes_app/api_connection/api_connection.dart';
 import 'package:clothes_app/controller/item_details_controller.dart';
+import 'package:clothes_app/users/cart/cart_list_screen.dart';
 import 'package:clothes_app/users/model/clothes.dart';
 import 'package:clothes_app/users/userPreferences/current_user.dart';
 import 'package:flutter/material.dart';
@@ -151,81 +152,90 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          //item image
-          FadeInImage(
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-            placeholder: const AssetImage("images/loading.gif"),
-            image: NetworkImage(
-              widget.itemInfo!.item_image!,
-            ),
-            imageErrorBuilder: (context, error, stackTraceError) {
-              return const Center(
-                child: Icon(
-                  Icons.broken_image_outlined,
-                ),
-              );
-            },
-          ),
-
-          //item information
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: itemInfoWidget(),
-          ),
-
-          //3 btn -favorite -shoppingcart -back
-          Positioned(
-            top: MediaQuery.of(context).padding.top,
-            left: 0,
-            right: 0,
-            child: Container(
-              color: Colors.transparent,
-              child: Row(
-                children: [
-                  //back
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.purpleAccent,
-                    ),
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            //item image
+            FadeInImage(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
+              placeholder: const AssetImage("images/loading.gif"),
+              image: NetworkImage(
+                widget.itemInfo!.item_image!,
+              ),
+              imageErrorBuilder: (context, error, stackTraceError) {
+                return const Center(
+                  child: Icon(
+                    Icons.broken_image_outlined,
                   ),
+                );
+              },
+            ),
 
-                  const Spacer(),
-                  //favorite
-                  Obx(
-                    () => IconButton(
+            //item information
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: itemInfoWidget(),
+            ),
+
+            //3 btn -favorite -shoppingcart -back
+            Positioned(
+              top: MediaQuery.of(context).padding.top,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    //back
+                    IconButton(
                       onPressed: () {
-                        if (itemDetailsController.isFavorite) {
-                          //delete item from favorite
-                          deleteItemFromFavoriteList();
-                        } else {
-                          //save item to user favorite
-                          addItemToFavoriteList();
-                        }
+                        Get.back();
                       },
-                      icon: Icon(
-                        itemDetailsController.isFavorite
-                            ? Icons.bookmark
-                            : Icons.bookmark_border_outlined,
+                      icon: const Icon(
+                        Icons.arrow_back,
                         color: Colors.purpleAccent,
                       ),
                     ),
-                  ),
-                ],
+
+                    const Spacer(),
+                    //favorite
+                    Obx(
+                      () => IconButton(
+                        onPressed: () {
+                          if (itemDetailsController.isFavorite) {
+                            //delete item from favorite
+                            deleteItemFromFavoriteList();
+                          } else {
+                            //save item to user favorite
+                            addItemToFavoriteList();
+                          }
+                        },
+                        icon: Icon(
+                          itemDetailsController.isFavorite
+                              ? Icons.bookmark
+                              : Icons.bookmark_border_outlined,
+                          color: Colors.purpleAccent,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Go to cart', // used by assistive technologies
+          onPressed: () {
+            Get.to(() => const CartListScreen());
+          },
+          child: const Icon(
+            Icons.shopping_cart,
+            color: Colors.white,
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   itemInfoWidget() {
