@@ -2,7 +2,7 @@ class API {
   static const apiToken =
       "fXuauEclTQWZdqmSU3l9ys0jqIWeVb5fVG8pbvd8FUFTiD0WDB1euNkO1rn4INL0";
 
-  static const hostConnect = "http://192.168.1.150/api_clothes_store";
+  static const hostConnect = "http://192.168.1.178/api_clothes_store";
   static const hostConnectUser = "$hostConnect/user/user_services.php";
   static const hostConnectAdmin = "$hostConnect/admin/admin_services.php";
   static const hostConnectItem = "$hostConnect/item/item_services.php";
