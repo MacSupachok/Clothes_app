@@ -370,7 +370,7 @@ class OrderNowScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                   placeholder: const AssetImage("images/placeholder.png"),
                   image: NetworkImage(
-                    eachSelectedItem["image"],
+                    eachSelectedItem["image"].toString(),
                   ),
                   imageErrorBuilder: (context, error, stackTraceError) {
                     return const Center(
