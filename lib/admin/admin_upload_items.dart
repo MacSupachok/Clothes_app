@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:clothes_app/admin/admin_get_all_orders.dart';
 import 'package:clothes_app/admin/admin_login.dart';
 import 'package:clothes_app/api_connection/api_connection.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +110,19 @@ class _AdminUploadItemsScreenState extends State<AdminUploadItemsScreen> {
           ),
         ),
         automaticallyImplyLeading: false,
-        title: const Text("Welcome Admin"),
+        title: GestureDetector(
+          onTap: () {
+            Get.to(() => AdminGetAllOrdersScreen());
+          },
+          child: const Text(
+            "New Orders",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         centerTitle: true,
         actions: [
           TextButton(

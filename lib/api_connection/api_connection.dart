@@ -26,6 +26,8 @@ class API {
   //admin srevices
   static const adminLogIn =
       "$hostConnectAdmin?function=login_admin&api_token=$apiToken";
+  static const adminGetAllOrder =
+      "$hostConnectAdmin?function=read_order&api_token=$apiToken";
 
   //item services
   static const uploadNewItem =
