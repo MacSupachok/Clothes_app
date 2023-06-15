@@ -12,31 +12,31 @@ import '../../api_connection/api_connection.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
-import '../users/order/order_details.dart';
+import '../order/order_details.dart';
 
-class AdminGetAllOrdersScreen extends StatelessWidget {
+class HistoryScreen extends StatelessWidget {
   final currentOnlineUser = Get.put(CurrentUser());
 
   var log = Logger();
 
-  AdminGetAllOrdersScreen({super.key});
+  HistoryScreen({super.key});
 
-  Future<List<Order>> getAllOrdersList() async {
-    List<Order> orderList = [];
+  Future<List<Order>> getCurrentUserOrdersList() async {
+    List<Order> ordersListOfCurrentUser = [];
 
     try {
-      var res = await http.post(Uri.parse(API.adminGetAllOrder), body: {
-        // "user_id": currentOnlineUser.user.user_id.toString(),
+      var res = await http.post(Uri.parse(API.readOrderHistory), body: {
+        "user_id": currentOnlineUser.user.user_id.toString(),
       });
 
       if (res.statusCode == 200) {
         var responseBodyOfCurrentUserOrdersList = jsonDecode(res.body);
 
         if (responseBodyOfCurrentUserOrdersList['success'] == true) {
-          for (var eachOrderData
-              in (responseBodyOfCurrentUserOrdersList['allOrderData']
-                  as List)) {
-            orderList.add(Order.fromJson(eachOrderData));
+          for (var eachCurrentUserOrderData
+              in (responseBodyOfCurrentUserOrdersList['orderData'] as List)) {
+            ordersListOfCurrentUser
+                .add(Order.fromJson(eachCurrentUserOrderData));
           }
         }
       } else {
@@ -47,7 +47,7 @@ class AdminGetAllOrdersScreen extends StatelessWidget {
       Fluttertoast.showToast(msg: "Error:: $errorMsg");
     }
 
-    return orderList;
+    return ordersListOfCurrentUser;
   }
 
   @override
@@ -55,46 +55,46 @@ class AdminGetAllOrdersScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //Order image       //history image
           //myOrder title     //history title
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 8, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //order icon image
-                // my orders
-                Column(
-                  children: [
-                    Image.asset(
-                      "images/orders_icon.png",
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 8, 0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "images/history_icon.png",
                       width: 140,
                     ),
-                    const Text(
-                      "ALL New Orders",
-                      style: TextStyle(
-                        color: Colors.purpleAccent,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  const Text(
+                    "My History",
+                    style: TextStyle(
+                      color: Colors.purpleAccent,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
 
           //some info
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: Text(
-              "Here are your successfully placed orders.",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.w400,
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Text(
+                "Here are your successfully received orders.",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),
@@ -110,7 +110,7 @@ class AdminGetAllOrdersScreen extends StatelessWidget {
 
   Widget displayOrdersList(context) {
     return FutureBuilder(
-      future: getAllOrdersList(),
+      future: getCurrentUserOrdersList(),
       builder: (context, AsyncSnapshot<List<Order>> dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return const Column(

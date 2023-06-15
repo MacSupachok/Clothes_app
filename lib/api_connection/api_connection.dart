@@ -60,4 +60,8 @@ class API {
   //order services
   static const addOrder = "$hostOrder?function=add_order&api_token=$apiToken";
   static const readOrder = "$hostOrder?function=read_order&api_token=$apiToken";
+  static const readOrderHistory =
+      "$hostOrder?function=read_order_history&api_token=$apiToken";
+  static const updateStatusOrder =
+      "$hostOrder?function=update_order&api_token=$apiToken";
 }

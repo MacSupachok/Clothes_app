@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:clothes_app/users/model/order.dart';
+import 'package:clothes_app/users/order/history_screen.dart';
 import 'package:clothes_app/users/userPreferences/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -88,6 +89,7 @@ class OrderFragmentScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     //send user to orders history screen
+                    Get.to(() => HistoryScreen());
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

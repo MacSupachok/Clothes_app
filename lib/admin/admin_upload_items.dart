@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clothes_app/admin/admin_get_all_orders.dart';
-import 'package:clothes_app/admin/admin_login.dart';
+// import 'package:clothes_app/admin/admin_login.dart';
 import 'package:clothes_app/api_connection/api_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../users/authentication/login_screen.dart';
 
 class AdminUploadItemsScreen extends StatefulWidget {
   const AdminUploadItemsScreen({super.key});
@@ -117,25 +119,21 @@ class _AdminUploadItemsScreenState extends State<AdminUploadItemsScreen> {
           child: const Text(
             "New Orders",
             style: TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
+              color: Colors.green,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
         actions: [
-          TextButton(
+          IconButton(
             onPressed: () {
-              Get.to(() => const AdminLoginScreen());
+              Get.to(() => const LoginScreen());
             },
-            child: const Text(
-              "Exit",
-              style: TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.redAccent,
             ),
           ),
         ],
