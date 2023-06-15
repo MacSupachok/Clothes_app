@@ -76,24 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   const Image(
-                      width: 70,
-                      height: 70,
-                      image: AssetImage('images/microphone.png')),
+                      width: 120,
+                      height: 120,
+                      image: AssetImage('images/shop.png')),
                   const SizedBox(
                     height: 30,
                   ),
                   const Text(
-                    'SIGN IN',
+                    'Wellcome',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff404040)),
-                  ),
-                  const Text(
-                    'TO CONTINUE',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 48,
+                        fontWeight: FontWeight.w800,
                         color: Color(0xff404040)),
                   ),
                   SizedBox(

@@ -53,7 +53,7 @@ class DashboardOfFragments extends StatelessWidget {
       },
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           body: SafeArea(
             child: Obx(() => _fragmentScreen[_indexNumber.value]),
           ),
@@ -66,13 +66,13 @@ class DashboardOfFragments extends StatelessWidget {
               showSelectedLabels: true,
               showUnselectedLabels: true,
               selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.white24,
+              unselectedItemColor: Color.fromARGB(59, 109, 100, 100),
               items: List.generate(
                 4,
                 (index) {
                   var navBtnProperty = _navigationButtonProperties[index];
                   return BottomNavigationBarItem(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Color.fromARGB(255, 202, 135, 9),
                     icon: Icon(navBtnProperty["non_active_icon"]),
                     activeIcon: Icon(navBtnProperty["active_icon"]),
                     label: navBtnProperty["lable"],
