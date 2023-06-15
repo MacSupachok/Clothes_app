@@ -105,7 +105,7 @@ class HomeFragmentScreen extends StatelessWidget {
             child: Text(
               "Trending",
               style: TextStyle(
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
@@ -122,7 +122,7 @@ class HomeFragmentScreen extends StatelessWidget {
             child: Text(
               "New Collections",
               style: TextStyle(
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
@@ -141,7 +141,7 @@ class HomeFragmentScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: TextField(
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         controller: searchController,
         decoration: InputDecoration(
           prefixIcon: IconButton(
@@ -150,7 +150,8 @@ class HomeFragmentScreen extends StatelessWidget {
             },
             icon: const Icon(
               Icons.search,
-              color: Colors.purpleAccent,
+              color: Colors.black,
+              size: 35,
             ),
           ),
           hintText: "Search best clothes here...",
@@ -164,19 +165,20 @@ class HomeFragmentScreen extends StatelessWidget {
             },
             icon: const Icon(
               Icons.shopping_cart,
-              color: Colors.purpleAccent,
+              color: Color.fromARGB(255, 255, 178, 63),
+              size: 35,
             ),
           ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: Colors.purple,
+              color: Colors.black,
             ),
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              width: 2,
-              color: Colors.purpleAccent,
+              width: 3,
+              color: Color.fromARGB(255, 255, 178, 63),
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -225,8 +227,8 @@ class HomeFragmentScreen extends StatelessWidget {
                       10,
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color.fromARGB(255, 51, 51, 51),
                       boxShadow: const [
                         BoxShadow(
                           offset: Offset(0, 3),
@@ -240,8 +242,8 @@ class HomeFragmentScreen extends StatelessWidget {
                         //item image
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(22),
-                            topRight: Radius.circular(22),
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
                           ),
                           child: FadeInImage(
                             height: 150,
@@ -289,7 +291,7 @@ class HomeFragmentScreen extends StatelessWidget {
                                     NumberFormat('#,##0')
                                         .format(eachClothItemData.item_price),
                                     style: const TextStyle(
-                                      color: Colors.purpleAccent,
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -382,8 +384,8 @@ class HomeFragmentScreen extends StatelessWidget {
                     index == dataSnapShot.data!.length - 1 ? 16 : 8,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color.fromARGB(255, 51, 51, 51),
                     boxShadow: const [
                       BoxShadow(
                         offset: Offset(0, 0),
@@ -427,7 +429,8 @@ class HomeFragmentScreen extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 18,
-                                          color: Colors.purpleAccent,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -457,8 +460,8 @@ class HomeFragmentScreen extends StatelessWidget {
                       //item image
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
                         ),
                         child: FadeInImage(
                           height: 130,

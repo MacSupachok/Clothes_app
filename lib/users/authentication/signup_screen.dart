@@ -98,8 +98,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   Image(
-                      width: 100,
-                      height: 100,
+                      width: 140,
+                      height: 140,
                       image: AssetImage('images/register.png')),
                   SizedBox(
                     height: 30,
@@ -220,12 +220,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 70),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(colors: [
-                            Color(0xFFA0F107),
-                            Color(0xFFEE8625),
-                            Color(0xC208C221),
-                          ])),
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color.fromARGB(255, 255, 85, 63),
+                      ),
                       child: Text(
                         'SIGN UP',
                         style: TextStyle(

@@ -167,12 +167,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 70),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(colors: [
-                            Color(0xff3ab4b3),
-                            Color(0xff2544ee),
-                            Color(0xffeb45fc),
-                          ])),
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color.fromARGB(255, 255, 178, 63),
+                      ),
                       child: Text(
                         'Log in',
                         style: TextStyle(

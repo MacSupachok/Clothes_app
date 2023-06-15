@@ -169,8 +169,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 40),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Color.fromARGB(255, 105, 211, 6)),
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color.fromARGB(255, 255, 178, 63),
+                      ),
                       child: Text(
                         'Admin login',
                         style: TextStyle(

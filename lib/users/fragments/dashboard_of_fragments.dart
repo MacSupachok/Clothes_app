@@ -66,13 +66,13 @@ class DashboardOfFragments extends StatelessWidget {
               showSelectedLabels: true,
               showUnselectedLabels: true,
               selectedItemColor: Colors.white,
-              unselectedItemColor: Color.fromARGB(59, 109, 100, 100),
+              unselectedItemColor: Colors.white,
               items: List.generate(
                 4,
                 (index) {
                   var navBtnProperty = _navigationButtonProperties[index];
                   return BottomNavigationBarItem(
-                    backgroundColor: Color.fromARGB(255, 202, 135, 9),
+                    backgroundColor: Color.fromARGB(255, 255, 178, 63),
                     icon: Icon(navBtnProperty["non_active_icon"]),
                     activeIcon: Icon(navBtnProperty["active_icon"]),
                     label: navBtnProperty["lable"],
