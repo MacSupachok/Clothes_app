@@ -70,7 +70,7 @@ class FavoritesFragmentScreen extends StatelessWidget {
             child: Text(
               "My Favorite List",
               style: TextStyle(
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -145,7 +145,7 @@ class FavoritesFragmentScreen extends StatelessWidget {
                     index == dataSnapShot.data!.length - 1 ? 16 : 8,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(8),
                     color: Colors.black,
                     boxShadow: const [
                       BoxShadow(
@@ -190,7 +190,8 @@ class FavoritesFragmentScreen extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 18,
-                                          color: Colors.purpleAccent,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -220,8 +221,8 @@ class FavoritesFragmentScreen extends StatelessWidget {
                       //item image
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
                         ),
                         child: FadeInImage(
                           height: 130,
