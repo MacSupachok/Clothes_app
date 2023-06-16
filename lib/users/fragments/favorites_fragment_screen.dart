@@ -146,7 +146,7 @@ class FavoritesFragmentScreen extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 51, 51, 51),
                     boxShadow: const [
                       BoxShadow(
                         offset: Offset(0, 0),

@@ -195,7 +195,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       },
                       icon: const Icon(
                         Icons.arrow_back,
-                        color: Colors.purpleAccent,
+                        color: Color.fromARGB(255, 255, 178, 63),
                       ),
                     ),
 
@@ -216,7 +216,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                           itemDetailsController.isFavorite
                               ? Icons.bookmark
                               : Icons.bookmark_border_outlined,
-                          color: Colors.purpleAccent,
+                          color: Color.fromARGB(255, 255, 178, 63),
                         ),
                       ),
                     ),
@@ -243,14 +243,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       height: MediaQuery.of(Get.context!).size.height * 0.6,
       width: MediaQuery.of(Get.context!).size.width,
       decoration: const BoxDecoration(
-        color: Colors.black,
+        color: Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -3),
             blurRadius: 6,
-            color: Colors.purpleAccent,
+            color: Color.fromARGB(255, 179, 179, 179),
           ),
         ],
       ),
@@ -265,7 +265,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 height: 8,
                 width: 140,
                 decoration: BoxDecoration(
-                  color: Colors.purpleAccent,
+                  color: Color.fromARGB(255, 255, 178, 63),
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
@@ -279,7 +279,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: 24,
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -317,7 +317,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                           const SizedBox(height: 8),
                           Text(
                             "   (${widget.itemInfo!.item_rating!})",
-                            style: const TextStyle(color: Colors.purpleAccent),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
                           ),
                         ],
                       ),
@@ -343,7 +344,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 24,
-                          color: Colors.purpleAccent,
+                          color: Color.fromARGB(255, 0, 0, 0),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -371,7 +372,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                         itemDetailsController.quantity.toString(),
                         style: const TextStyle(
                           fontSize: 20,
-                          color: Colors.purpleAccent,
+                          color: Color.fromARGB(255, 0, 0, 0),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -402,7 +403,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               "Size:",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -422,14 +423,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       height: 35,
                       width: 60,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: itemDetailsController.size == index
-                              ? Colors.transparent
-                              : Colors.grey,
-                        ),
                         color: itemDetailsController.size == index
-                            ? Colors.purpleAccent.withOpacity(0.4)
+                            ? Color.fromARGB(255, 255, 178, 63).withOpacity(1)
                             : Colors.black,
                       ),
                       alignment: Alignment.center,
@@ -453,7 +448,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               "Colors:",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -472,14 +467,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       height: 35,
                       width: 60,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: itemDetailsController.color == index
-                              ? Colors.transparent
-                              : Colors.grey,
-                        ),
+                        // border: Border.all(
+                        //   width: 2,
+                        //   color: itemDetailsController.color == index
+                        //       ? Colors.transparent
+                        //       : Colors.grey,
+                        // ),
                         color: itemDetailsController.color == index
-                            ? Colors.purpleAccent.withOpacity(0.4)
+                            ? Color.fromARGB(255, 255, 178, 63).withOpacity(1)
                             : Colors.black,
                       ),
                       alignment: Alignment.center,
@@ -503,7 +498,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               "Description:",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.purpleAccent,
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -519,7 +514,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
             //add to cart
             Material(
               elevation: 4,
-              color: Colors.purpleAccent,
+              color: Color.fromARGB(255, 255, 178, 63),
               borderRadius: BorderRadius.circular(4),
               child: InkWell(
                 onTap: () {

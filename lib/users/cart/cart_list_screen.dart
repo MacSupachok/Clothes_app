@@ -165,9 +165,9 @@ class _CartListScreenState extends State<CartListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 255, 178, 63),
         title: const Text(
           "My Cart",
         ),
@@ -191,7 +191,7 @@ class _CartListScreenState extends State<CartListScreen> {
                     ? Icons.check_box
                     : Icons.check_box_outline_blank,
                 color: cartListController.isSelectedAll
-                    ? Colors.white
+                    ? const Color.fromARGB(255, 0, 0, 0)
                     : Colors.grey,
               ),
             ),
@@ -303,7 +303,7 @@ class _CartListScreenState extends State<CartListScreen> {
                                       ? Icons.check_box
                                       : Icons.check_box_outline_blank,
                                   color: cartListController.isSelectedAll
-                                      ? Colors.white
+                                      ? const Color.fromARGB(255, 0, 0, 0)
                                       : Colors.grey),
                             );
                           },
@@ -327,8 +327,8 @@ class _CartListScreenState extends State<CartListScreen> {
                                     : 8,
                               ),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(8),
+                                color: Color.fromARGB(255, 51, 51, 51),
                                 boxShadow: const [
                                   BoxShadow(
                                     offset: Offset(0, 0),
@@ -385,7 +385,8 @@ class _CartListScreenState extends State<CartListScreen> {
                                                   "${clothesModel.item_price.toString()} THB",
                                                   style: const TextStyle(
                                                     fontSize: 20,
-                                                    color: Colors.purpleAccent,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -422,7 +423,8 @@ class _CartListScreenState extends State<CartListScreen> {
                                               Text(
                                                 cartModel.quantity.toString(),
                                                 style: const TextStyle(
-                                                    color: Colors.purpleAccent,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
                                                     fontSize: 20,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -453,8 +455,8 @@ class _CartListScreenState extends State<CartListScreen> {
                                   //image
                                   ClipRRect(
                                     borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(22),
-                                      bottomRight: Radius.circular(22),
+                                      topRight: Radius.circular(8),
+                                      bottomRight: Radius.circular(8),
                                     ),
                                     child: FadeInImage(
                                       height: 185,
@@ -494,7 +496,7 @@ class _CartListScreenState extends State<CartListScreen> {
           builder: (c) {
             return Container(
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: Color.fromARGB(255, 255, 178, 63),
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, -3),
@@ -511,7 +513,7 @@ class _CartListScreenState extends State<CartListScreen> {
                     "Total Amount : ",
                     style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white38,
+                        color: Color.fromARGB(97, 0, 0, 0),
                         fontWeight: FontWeight.bold),
                   ),
 
@@ -534,7 +536,7 @@ class _CartListScreenState extends State<CartListScreen> {
                   //ordernow btn
                   Material(
                     color: cartListController.selectedItemList.isNotEmpty
-                        ? Colors.purpleAccent
+                        ? Color.fromARGB(255, 255, 85, 63)
                         : Colors.white24,
                     borderRadius: BorderRadius.circular(30),
                     child: InkWell(

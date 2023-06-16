@@ -54,7 +54,7 @@ class OrderFragmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -76,7 +76,7 @@ class OrderFragmentScreen extends StatelessWidget {
                     Text(
                       "My Orders",
                       style: TextStyle(
-                        color: Colors.purpleAccent,
+                        color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -102,7 +102,7 @@ class OrderFragmentScreen extends StatelessWidget {
                         Text(
                           "History",
                           style: TextStyle(
-                            color: Colors.purpleAccent,
+                            color: const Color.fromARGB(255, 10, 10, 10),
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -268,21 +268,28 @@ class OrderFragmentScreen extends StatelessWidget {
             },
           );
         } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  "Nothing to show...",
-                  style: TextStyle(
-                    color: Colors.grey,
+          return Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Text(
+                    "Nothing to show...",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: CircularProgressIndicator(),
-              ),
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                // Center(
+                //   child: CircularProgressIndicator(),
+                // ),
+              ],
+            ),
           );
         }
       },

@@ -58,7 +58,7 @@ class ProfileFragmentScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.grey,
+        color: Color.fromARGB(255, 228, 228, 228),
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -69,7 +69,7 @@ class ProfileFragmentScreen extends StatelessWidget {
           Icon(
             iconData,
             size: 30,
-            color: Colors.black,
+            color: Color.fromARGB(255, 255, 178, 63),
           ),
           const SizedBox(
             width: 16,
