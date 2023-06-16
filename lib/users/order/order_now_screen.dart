@@ -1,23 +1,13 @@
-// ignore_for_file: must_be_immutable, deprecated_member_use
+// ignore_for_file: must_be_immutable
 
-import 'dart:convert';
-
-import 'package:clothes_app/api_connection/api_connection.dart';
 import 'package:clothes_app/controller/order_now_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-// import 'order_confirm.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:logger/logger.dart';
-import 'package:http/http.dart' as http;
-
-import '../model/order.dart';
-import '../userPreferences/current_user.dart';
+import 'order_confirm.dart';
 
 class OrderNowScreen extends StatelessWidget {
-  var log = Logger();
   final List<Map<String, dynamic>> selectedCartListItemsInfo;
   final double totalAmount;
   final List<int> selectedCartId;
@@ -29,8 +19,6 @@ class OrderNowScreen extends StatelessWidget {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController shipmentAddressController = TextEditingController();
   TextEditingController noteToSellerController = TextEditingController();
-
-  CurrentUser currentUser = Get.put(CurrentUser());
 
   OrderNowScreen({
     super.key,
@@ -86,6 +74,59 @@ class OrderNowScreen extends StatelessWidget {
                       onChanged: (newDeliverySystemValue) {
                         orderNowController
                             .setDeliverySystem(newDeliverySystemValue!);
+                      },
+                    ));
+              }).toList(),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          //payment system
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Payment System:',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'Bank Account : 382-243-1087',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white38,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              children: paymentSystemNamesList.map((paymentSystemName) {
+                return Obx(() => RadioListTile<String>(
+                      tileColor: Colors.white24,
+                      dense: true,
+                      activeColor: Colors.purpleAccent,
+                      title: Text(
+                        paymentSystemName,
+                        style: const TextStyle(
+                            fontSize: 16, color: Colors.white38),
+                      ),
+                      value: paymentSystemName,
+                      groupValue: orderNowController.paymentSys,
+                      onChanged: (newPaymentSystemValue) {
+                        orderNowController
+                            .setPaymentSystem(newPaymentSystemValue!);
                       },
                     ));
               }).toList(),
@@ -236,17 +277,19 @@ class OrderNowScreen extends StatelessWidget {
               color: Colors.purpleAccent,
               borderRadius: BorderRadius.circular(30),
               child: InkWell(
-                onTap: () async {
+                onTap: () {
                   if (phoneNumberController.text.isNotEmpty &&
                       shipmentAddressController.text.isNotEmpty) {
-                    String url =
-                        "http://192.168.1.178/api_clothes_store/chill_pay/payment.php";
-                    var urllaunchable = await canLaunch(url);
-                    if (urllaunchable) {
-                      await launch(url);
-                    } else {
-                      log.d("URL can't be launched.");
-                    }
+                    Get.to(() => (OrderConfirmationScreen(
+                          selectedCartIDs: selectedCartId,
+                          selectedCartListItemsInfo: selectedCartListItemsInfo,
+                          totalAmount: totalAmount,
+                          deliverySystem: orderNowController.deliverySys,
+                          paymentSystem: orderNowController.paymentSys,
+                          phoneNumber: phoneNumberController.text,
+                          shipmentAddress: shipmentAddressController.text,
+                          note: noteToSellerController.text,
+                        )));
                   } else {
                     Fluttertoast.showToast(msg: "Please complete the form.");
                   }
@@ -419,80 +462,5 @@ class OrderNowScreen extends StatelessWidget {
         );
       }),
     );
-  }
-
-  deleteSelectedItemsFromUserCartList(int cartID) async {
-    try {
-      var res = await http.post(Uri.parse(API.deleteCart), body: {
-        "cart_id": cartID.toString(),
-      });
-
-      if (res.statusCode == 200) {
-        var responseBodyFromDeleteCart = jsonDecode(res.body);
-
-        if (responseBodyFromDeleteCart["success"] == true) {
-          // Fluttertoast.showToast(
-          //         msg: "your new order has been placed Successfully.")
-          //     .then((value) {
-          //   Future.delayed(const Duration(seconds: 2), () {
-          //     Get.to(() => DashboardOfFragments());
-          //   });
-          // });
-        }
-      } else {
-        Fluttertoast.showToast(msg: "Error, Status Code is not 200");
-      }
-    } catch (errorMessage) {
-      log.d(errorMessage);
-
-      Fluttertoast.showToast(msg: "Error: $errorMessage");
-    }
-  }
-
-  saveNewOrderInfo() async {
-    String selectedItemsString = selectedCartListItemsInfo
-        .map((eachSelectedItem) => jsonEncode(eachSelectedItem))
-        .toList()
-        .join("||");
-
-    Order order = Order(
-      order_id: 1,
-      user_id: currentUser.user.user_id,
-      selectedItems: selectedItemsString,
-      deliverySystem: orderNowController.deliverySys,
-      note: noteToSellerController.value.toString(),
-      totalAmount: totalAmount,
-      status: "new",
-      dateTime: DateTime.now(),
-      shipmentAddress: shipmentAddressController.value.toString(),
-      phoneNumber: phoneNumberController.value.toString(),
-    );
-
-    try {
-      var res = await http.post(
-        Uri.parse(API.addOrder),
-        body: order,
-      );
-
-      if (res.statusCode == 200) {
-        log.d(res.statusCode);
-        var responseBodyOfAddNewOrder = jsonDecode(res.body);
-
-        if (responseBodyOfAddNewOrder["success"] == true) {
-          //delete selected items from user cart
-          for (var eachSelectedItemCartID in selectedCartId) {
-            deleteSelectedItemsFromUserCartList(eachSelectedItemCartID);
-          }
-        } else {
-          Fluttertoast.showToast(
-              msg: "Error:: \nyour new order do not placed.");
-        }
-      } else {
-        log.d(res.statusCode);
-      }
-    } catch (erroeMsg) {
-      log.d(erroeMsg);
-      Fluttertoast.showToast(msg: "Error: $erroeMsg");
-    }
   }
 }

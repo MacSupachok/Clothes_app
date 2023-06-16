@@ -15,6 +15,8 @@ import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 
 import '../fragments/dashboard_of_fragments.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
   final List<int>? selectedCartIDs;
@@ -147,117 +149,32 @@ class OrderConfirmationScreen extends StatelessWidget {
     }
   }
 
+  WebViewController controllerTest = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(const Color(0x00000000))
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          // Update loading bar.
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+        onWebResourceError: (WebResourceError error) {},
+        onNavigationRequest: (NavigationRequest request) {
+          if (request.url.startsWith('https://www.youtube.com/')) {
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },
+      ),
+    )
+    ..loadRequest(Uri.parse('https://www.google.co.th'));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //image
-            Image.asset(
-              "images/payment.png",
-              width: 250,
-            ),
-            const SizedBox(height: 4),
-
-            //title
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Please Attach Transaction \nProof / Screenshot",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-
-            //selection image btn
-            Material(
-              elevation: 8,
-              color: Colors.purpleAccent,
-              borderRadius: BorderRadius.circular(30),
-              child: InkWell(
-                onTap: () {
-                  chooseImageFromGallery();
-                },
-                borderRadius: BorderRadius.circular(30),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 12,
-                  ),
-                  child: Text(
-                    "Select Image",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            Obx(
-              () => ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.width * 0.6,
-                  maxWidth: MediaQuery.of(context).size.width * 0.6,
-                ),
-                child: imageSelectedByte.isNotEmpty
-                    ? Image.memory(imageSelectedByte, fit: BoxFit.contain)
-                    : const Placeholder(color: Colors.white60),
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            //confirm and proced
-            Obx(
-              () => Material(
-                elevation: 8,
-                color: imageSelectedByte.isNotEmpty
-                    ? Colors.purpleAccent
-                    : Colors.grey,
-                borderRadius: BorderRadius.circular(30),
-                child: InkWell(
-                  onTap: () {
-                    if (imageSelectedByte.isNotEmpty) {
-                      //save order info
-                      saveNewOrderInfo();
-                      //saveNewOrderInfo();
-                    } else {
-                      Fluttertoast.showToast(
-                          msg:
-                              "Please attach the transaction proof / screenshot.");
-                    }
-                  },
-                  borderRadius: BorderRadius.circular(30),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                    child: Text(
-                      "Confirmed & Proceed",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: const Text('Flutter Simple Example')),
+      body: WebViewWidget(controller: controllerTest),
     );
   }
 }
