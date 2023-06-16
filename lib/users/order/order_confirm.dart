@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, must_be_immutable
+// ignore_for_file: depend_on_referenced_packages, must_be_immutable, deprecated_member_use, unused_element
 
 import 'dart:convert';
 import 'dart:typed_data';
@@ -108,7 +108,7 @@ class OrderConfirmationScreen extends StatelessWidget {
           }
         } else {
           Fluttertoast.showToast(
-              msg: "Error:: \nyour new order do NOT placed.");
+              msg: "Error:: \nyour new order do not placed.");
         }
       } else {
         log.d(res.statusCode);

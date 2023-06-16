@@ -1,13 +1,16 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:clothes_app/controller/order_now_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import 'order_confirm.dart';
+// import 'order_confirm.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:logger/logger.dart';
 
 class OrderNowScreen extends StatelessWidget {
+  var log = Logger();
   final List<Map<String, dynamic>> selectedCartListItemsInfo;
   final double totalAmount;
   final List<int> selectedCartId;
@@ -74,59 +77,6 @@ class OrderNowScreen extends StatelessWidget {
                       onChanged: (newDeliverySystemValue) {
                         orderNowController
                             .setDeliverySystem(newDeliverySystemValue!);
-                      },
-                    ));
-              }).toList(),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          //payment system
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Payment System:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Bank Account : 382-243-1087',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white38,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              children: paymentSystemNamesList.map((paymentSystemName) {
-                return Obx(() => RadioListTile<String>(
-                      tileColor: Colors.white24,
-                      dense: true,
-                      activeColor: Colors.purpleAccent,
-                      title: Text(
-                        paymentSystemName,
-                        style: const TextStyle(
-                            fontSize: 16, color: Colors.white38),
-                      ),
-                      value: paymentSystemName,
-                      groupValue: orderNowController.paymentSys,
-                      onChanged: (newPaymentSystemValue) {
-                        orderNowController
-                            .setPaymentSystem(newPaymentSystemValue!);
                       },
                     ));
               }).toList(),
@@ -277,19 +227,17 @@ class OrderNowScreen extends StatelessWidget {
               color: Colors.purpleAccent,
               borderRadius: BorderRadius.circular(30),
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   if (phoneNumberController.text.isNotEmpty &&
                       shipmentAddressController.text.isNotEmpty) {
-                    Get.to(() => (OrderConfirmationScreen(
-                          selectedCartIDs: selectedCartId,
-                          selectedCartListItemsInfo: selectedCartListItemsInfo,
-                          totalAmount: totalAmount,
-                          deliverySystem: orderNowController.deliverySys,
-                          paymentSystem: orderNowController.paymentSys,
-                          phoneNumber: phoneNumberController.text,
-                          shipmentAddress: shipmentAddressController.text,
-                          note: noteToSellerController.text,
-                        )));
+                    String url =
+                        "http://192.168.1.178/api_clothes_store/chill_pay/payment.php";
+                    var urllaunchable = await canLaunch(url);
+                    if (urllaunchable) {
+                      await launch(url);
+                    } else {
+                      log.d("URL can't be launched.");
+                    }
                   } else {
                     Fluttertoast.showToast(msg: "Please complete the form.");
                   }
