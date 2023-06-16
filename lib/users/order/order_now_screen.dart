@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
+import 'dart:convert';
+
+import 'package:clothes_app/api_connection/api_connection.dart';
 import 'package:clothes_app/controller/order_now_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +11,10 @@ import 'package:get/get.dart';
 // import 'order_confirm.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:logger/logger.dart';
+import 'package:http/http.dart' as http;
+
+import '../model/order.dart';
+import '../userPreferences/current_user.dart';
 
 class OrderNowScreen extends StatelessWidget {
   var log = Logger();
@@ -22,6 +29,8 @@ class OrderNowScreen extends StatelessWidget {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController shipmentAddressController = TextEditingController();
   TextEditingController noteToSellerController = TextEditingController();
+
+  CurrentUser currentUser = Get.put(CurrentUser());
 
   OrderNowScreen({
     super.key,
@@ -410,5 +419,80 @@ class OrderNowScreen extends StatelessWidget {
         );
       }),
     );
+  }
+
+  deleteSelectedItemsFromUserCartList(int cartID) async {
+    try {
+      var res = await http.post(Uri.parse(API.deleteCart), body: {
+        "cart_id": cartID.toString(),
+      });
+
+      if (res.statusCode == 200) {
+        var responseBodyFromDeleteCart = jsonDecode(res.body);
+
+        if (responseBodyFromDeleteCart["success"] == true) {
+          // Fluttertoast.showToast(
+          //         msg: "your new order has been placed Successfully.")
+          //     .then((value) {
+          //   Future.delayed(const Duration(seconds: 2), () {
+          //     Get.to(() => DashboardOfFragments());
+          //   });
+          // });
+        }
+      } else {
+        Fluttertoast.showToast(msg: "Error, Status Code is not 200");
+      }
+    } catch (errorMessage) {
+      log.d(errorMessage);
+
+      Fluttertoast.showToast(msg: "Error: $errorMessage");
+    }
+  }
+
+  saveNewOrderInfo() async {
+    String selectedItemsString = selectedCartListItemsInfo
+        .map((eachSelectedItem) => jsonEncode(eachSelectedItem))
+        .toList()
+        .join("||");
+
+    Order order = Order(
+      order_id: 1,
+      user_id: currentUser.user.user_id,
+      selectedItems: selectedItemsString,
+      deliverySystem: orderNowController.deliverySys,
+      note: noteToSellerController.value.toString(),
+      totalAmount: totalAmount,
+      status: "new",
+      dateTime: DateTime.now(),
+      shipmentAddress: shipmentAddressController.value.toString(),
+      phoneNumber: phoneNumberController.value.toString(),
+    );
+
+    try {
+      var res = await http.post(
+        Uri.parse(API.addOrder),
+        body: order,
+      );
+
+      if (res.statusCode == 200) {
+        log.d(res.statusCode);
+        var responseBodyOfAddNewOrder = jsonDecode(res.body);
+
+        if (responseBodyOfAddNewOrder["success"] == true) {
+          //delete selected items from user cart
+          for (var eachSelectedItemCartID in selectedCartId) {
+            deleteSelectedItemsFromUserCartList(eachSelectedItemCartID);
+          }
+        } else {
+          Fluttertoast.showToast(
+              msg: "Error:: \nyour new order do not placed.");
+        }
+      } else {
+        log.d(res.statusCode);
+      }
+    } catch (erroeMsg) {
+      log.d(erroeMsg);
+      Fluttertoast.showToast(msg: "Error: $erroeMsg");
+    }
   }
 }
