@@ -365,7 +365,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                         },
                         icon: const Icon(
                           Icons.add_circle_outline,
-                          color: Colors.white,
+                          color: Colors.grey,
                         ),
                       ),
                       Text(
@@ -390,7 +390,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                         },
                         icon: const Icon(
                           Icons.remove_circle_outline,
-                          color: Colors.white,
+                          color: Colors.grey,
                         ),
                       ),
                     ],
